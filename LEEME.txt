@@ -1,0 +1,69 @@
+FOCO — app personal de tareas
+=============================
+
+Qué es
+------
+Una app web instalable (PWA) para controlar tareas, proyectos, notas,
+horario, recordatorios y lo que te llega por Microsoft Teams.
+Está pensada solo para ti. Interfaz en español, estilo claro, sin rojo.
+
+Cómo probarla YA en el PC
+-------------------------
+1. Entra a la carpeta "foco".
+2. Abre una terminal ahí y ejecuta:
+     python3 -m http.server 8080
+3. En Chrome o Edge abre: http://localhost:8080
+4. Opcional: menú del navegador → Instalar FOCO.
+
+Cómo ponerla en el iPhone
+-------------------------
+El iPhone solo instala páginas con https (no un archivo suelto).
+Sube la carpeta "foco" a uno de estos sitios gratis:
+  - Netlify Drop (arrastra la carpeta)
+  - GitHub Pages
+  - Cloudflare Pages
+Luego en el iPhone: Safari → el enlace → botón Compartir →
+"Añadir a pantalla de inicio".
+
+Avisos
+------
+Pulsa "Activar avisos" la primera vez.
+- Al abrir FOCO te resume las pendientes.
+- Cada hora, si sigues con tareas sin hacer y la app está abierta
+  o instalada con el navegador vivo, te recuerda.
+No puede despertar un PC apagado ni un iPhone si Safari está cerrado
+del todo. Eso solo lo hacen apps nativas de tienda.
+
+PC ↔ iPhone
+-----------
+Hoy la sincronización es por respaldo (Ajustes):
+  1. En el PC: Copiar datos o Descargar respaldo.
+  2. En el iPhone: pegar el texto en "Importar".
+Así ves lo mismo en los dos lados. Nube automática se puede añadir
+después con una cuenta tuya (no se usa tu contraseña de Microsoft
+dentro de FOCO).
+
+Teams
+-----
+FOCO NO pide ni guarda tu contraseña.
+Mientras tanto: pestaña Teams → "Añadir tarea de Teams" y anota
+lo que te enviaron. Puedes pasarla a "Mis tareas" con un toque.
+
+Para engancharlo de verdad a Microsoft Graph hace falta que un
+adulto o el informático de la escuela registre una app en Azure
+(cuenta Microsoft de trabajo o educativa) con permisos de lectura:
+  - Tasks.Read            (To Do / Planner)
+  - EduAssignments.Read   (tareas de clase, si aplica)
+y pegar solo el Client ID en Ajustes.
+Endpoints útiles:
+  GET https://graph.microsoft.com/v1.0/me/planner/tasks
+  GET https://graph.microsoft.com/v1.0/education/me/assignments
+
+Privacidad
+----------
+Todo vive en localStorage de TU navegador, en ese aparato.
+No hay servidor mío en el medio.
+
+Nombre
+------
+Si no te gusta FOCO, en una siguiente versión lo cambiamos.

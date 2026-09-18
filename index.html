@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F6E6B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="FOCO" />
+  <title>FOCO — tu control del día</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="./icons/icon-192.png" alt="FOCO" />
+        <div>
+          <div class="brand-name">FOCO</div>
+          <div class="brand-sub">solo para ti</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" data-view="inicio"><span class="nav-ico">◆</span> Inicio</button>
+        <button class="nav-btn" data-view="tareas"><span class="nav-ico">✓</span> Tareas</button>
+        <button class="nav-btn" data-view="proyectos"><span class="nav-ico">▣</span> Proyectos</button>
+        <button class="nav-btn" data-view="notas"><span class="nav-ico">✎</span> Notas</button>
+        <button class="nav-btn" data-view="calendario"><span class="nav-ico">▦</span> Horario</button>
+        <button class="nav-btn" data-view="recordatorios"><span class="nav-ico">◷</span> Recordatorios</button>
+        <button class="nav-btn" data-view="teams"><span class="nav-ico">⬡</span> Teams</button>
+        <button class="nav-btn" data-view="ajustes"><span class="nav-ico">⚙</span> Ajustes</button>
+      </nav>
+      <div class="sidebar-foot">
+        <strong>Instálala</strong>
+        En el iPhone: Safari → Compartir → Añadir a pantalla de inicio.
+        <div style="margin-top:8px"><button class="btn" data-act="install-help">Cómo instalar</button></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 class="hello" id="hello">Hola</h1>
+          <div class="date-line" id="date-line"></div>
+        </div>
+        <div class="top-actions">
+          <button class="btn" data-act="ask-notify">Activar avisos</button>
+          <button class="btn primary" data-act="new-task">+ Tarea</button>
+        </div>
+      </header>
+
+      <section class="view active" data-view="inicio">
+        <div class="grid grid-4" id="home-stats"></div>
+        <div class="grid grid-2" style="margin-top:16px">
+          <div class="card">
+            <h3>Prioridades</h3>
+            <div class="list" id="home-priorities"></div>
+          </div>
+          <div class="card">
+            <h3>Horario de hoy</h3>
+            <div class="timeline" id="home-schedule"></div>
+          </div>
+        </div>
+        <div class="grid grid-3" style="margin-top:16px">
+          <div class="card">
+            <h3>Notas importantes</h3>
+            <div id="home-notes"></div>
+          </div>
+          <div class="card">
+            <h3>Recordatorios</h3>
+            <div class="list" id="home-reminders"></div>
+          </div>
+          <div class="card">
+            <h3>Llegó por Teams</h3>
+            <div class="list" id="home-teams"></div>
+            <div class="card" style="margin-top:14px;padding:14px">
+              <h3>Foco 25 min</h3>
+              <div class="pomodoro">
+                <div class="pomo-time" id="pomo-time">25:00</div>
+                <div class="pomo-actions">
+                  <button class="btn primary" data-act="pomo-start">Empezar</button>
+                  <button class="btn" data-act="pomo-pause">Pausa</button>
+                  <button class="btn ghost" data-act="pomo-reset">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" data-view="tareas">
+        <div class="toolbar">
+          <input class="search" id="task-search" placeholder="Buscar tarea..." />
+          <div class="chips">
+            <button class="chip on" data-filter="status" data-value="pendientes">Pendientes</button>
+            <button class="chip" data-filter="status" data-value="hechas">Hechas</button>
+            <button class="chip" data-filter="status" data-value="todas">Todas</button>
+          </div>
+          <div class="chips">
+            <button class="chip on" data-filter="priority" data-value="todas">Toda prioridad</button>
+            <button class="chip" data-filter="priority" data-value="alta">Alta</button>
+            <button class="chip" data-filter="priority" data-value="media">Media</button>
+            <button class="chip" data-filter="priority" data-value="baja">Baja</button>
+          </div>
+          <button class="btn primary" data-act="new-task">+ Nueva</button>
+        </div>
+        <div class="card"><div class="list" id="task-list"></div></div>
+      </section>
+
+      <section class="view" data-view="proyectos">
+        <div class="toolbar">
+          <button class="btn primary" data-act="new-project">+ Proyecto</button>
+        </div>
+        <div class="grid grid-2" id="project-list"></div>
+      </section>
+
+      <section class="view" data-view="notas">
+        <div class="toolbar">
+          <button class="btn primary" data-act="new-note">+ Nota</button>
+        </div>
+        <div class="grid grid-2" id="notes-list"></div>
+      </section>
+
+      <section class="view" data-view="calendario">
+        <div class="card">
+          <div class="cal-head">
+            <button class="btn" data-act="cal-prev">←</button>
+            <strong id="cal-title"></strong>
+            <button class="btn" data-act="cal-next">→</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+        <div class="toolbar" style="margin-top:14px">
+          <button class="btn primary" data-act="new-event">+ Bloque de horario</button>
+        </div>
+        <div class="card" id="day-agenda"></div>
+      </section>
+
+      <section class="view" data-view="recordatorios">
+        <div class="toolbar">
+          <button class="btn primary" data-act="new-rem">+ Recordatorio</button>
+          <button class="btn" data-act="ask-notify">Permitir avisos del navegador</button>
+        </div>
+        <div class="card">
+          <p style="color:var(--muted);font-size:14px;margin-top:0">Si dejas FOCO abierto o instalado y das permiso, te avisa al entrar y cada hora si siguen habiendo tareas pendientes. No puede avisarte si el teléfono o el PC apagó el navegador por completo.</p>
+          <div class="list" id="rem-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="teams">
+        <div class="teams-banner" id="teams-status"></div>
+        <div class="card">
+          <h3>Tareas que llegaron por Teams</h3>
+          <div class="list" id="teams-list"></div>
+        </div>
+      </section>
+
+      <section class="view" data-view="mas">
+        <div class="grid grid-2">
+          <button class="card" data-view="proyectos" style="text-align:left"><h3>Proyectos</h3><p style="margin:0;color:var(--muted)">Agrupa trabajos y materias</p></button>
+          <button class="card" data-view="recordatorios" style="text-align:left"><h3>Recordatorios</h3><p style="margin:0;color:var(--muted)">Avisos cada hora</p></button>
+          <button class="card" data-view="teams" style="text-align:left"><h3>Teams</h3><p style="margin:0;color:var(--muted)">Lo que te envían</p></button>
+          <button class="card" data-view="ajustes" style="text-align:left"><h3>Ajustes</h3><p style="margin:0;color:var(--muted)">Nombre, avisos y copia entre PC y iPhone</p></button>
+        </div>
+      </section>
+
+      <section class="view" data-view="ajustes">
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Tu perfil</h3>
+            <div class="field"><label>Cómo te llamas</label><input id="set-name" placeholder="Tu nombre" /></div>
+            <label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="set-open"> Aviso al abrir FOCO</label>
+            <label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="set-hourly"> Recordatorio cada hora si hay pendientes</label>
+          </div>
+          <div class="card">
+            <h3>Microsoft / Teams</h3>
+            <p style="color:var(--muted);font-size:14px">No pongas tu contraseña aquí. Nunca. Si un adulto o tu escuela te ayuda, se crea una “aplicación” en Azure y se pega solo el ID público:</p>
+            <div class="field"><label>Client ID (opcional)</label><input id="set-client" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" /></div>
+            <p style="font-size:13px;color:var(--muted)">Conexión real usa Microsoft Graph: tareas de Planner (<code>/me/planner/tasks</code>) o de la escuela (<code>/education/me/assignments</code>). Hasta que eso esté, anota en la pestaña Teams lo que te envíen.</p>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <h3>Sincronizar PC ↔ iPhone</h3>
+          <p style="color:var(--muted);font-size:14px">FOCO guarda todo en este dispositivo. Para ver lo mismo en el otro: exporta o copia el respaldo aquí y pégalo allá. Si más adelante quieres nube automática, se puede enganchar a una cuenta tuya.</p>
+          <div class="toolbar">
+            <button class="btn primary" data-act="export">Descargar respaldo</button>
+            <button class="btn" data-act="copy-backup">Copiar datos</button>
+          </div>
+          <div class="field"><label>Respaldo actual</label><textarea class="codebox" id="backup-box" readonly></textarea></div>
+          <div class="field"><label>Pegar respaldo de otro dispositivo</label><textarea class="codebox" id="import-box" placeholder="Pega aquí el JSON y pulsa Importar"></textarea></div>
+          <button class="btn" data-act="import">Importar</button>
+          <button class="btn danger" data-act="wipe" style="margin-left:8px">Borrar este aparato</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="active" data-view="inicio"><span class="bn-ico">◆</span>Inicio</button>
+    <button data-view="tareas"><span class="bn-ico">✓</span>Tareas</button>
+    <button data-view="notas"><span class="bn-ico">✎</span>Notas</button>
+    <button data-view="calendario"><span class="bn-ico">▦</span>Horario</button>
+    <button data-view="mas"><span class="bn-ico">☰</span>Más</button>
+  </nav>
+
+  <div class="modal-bg" id="modal-bg"><div class="modal" id="modal"></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
